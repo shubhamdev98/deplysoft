@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -22,5 +21,59 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* Infinite Right to Left Marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 120s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Fullscreen F11 20% Image Height Increase */
+@media (display-mode: fullscreen) {
+  @media (min-width: 1024px) {
+    .hero-stepped-col,
+    .hero-stepped-img2 {
+      height: 250px !important; /* +20% over 208px lg:h-52 */
+    }
+    .hero-stepped-img1 {
+      height: 115px !important; /* +20% over 96px lg:h-24 */
+    }
+  }
+}
+
+:fullscreen .hero-stepped-col,
+:fullscreen .hero-stepped-img2 {
+  height: 250px !important;
+}
+
+:fullscreen .hero-stepped-img1 {
+  height: 115px !important;
+}
+
+/* Navbar logo: Dark black by default, blue on hover */
+.navbar-brand-logo {
+  filter: brightness(0);
+  transition: filter 0.25s ease;
+}
+
+.group:hover .navbar-brand-logo,
+.navbar-brand-logo:hover {
+  filter: none;
+}
+
