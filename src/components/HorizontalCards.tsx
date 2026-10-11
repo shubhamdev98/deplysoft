@@ -201,7 +201,7 @@ export default function HorizontalCards() {
               <div>
                 <div className="flex items-start justify-between">
                   <span
-                    className={`${outfit.className} card-outline-number text-6xl sm:text-7xl font-bold tracking-tight select-none inline-block transition-transform duration-300 group-hover:scale-105`}
+                    className={`${outfit.className} text-6xl sm:text-7xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
                   >
                     {card.number}
                   </span>
