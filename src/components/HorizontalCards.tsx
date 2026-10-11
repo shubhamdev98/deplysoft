@@ -166,7 +166,7 @@ export default function HorizontalCards() {
                 type="button"
                 onClick={() => handleScrollByButton("left")}
                 aria-label="Previous card"
-                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-zinc-100 text-zinc-700 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -174,7 +174,7 @@ export default function HorizontalCards() {
                 type="button"
                 onClick={() => handleScrollByButton("right")}
                 aria-label="Next card"
-                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-zinc-100 text-zinc-700 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -193,42 +193,42 @@ export default function HorizontalCards() {
           {CARDS_DATA.map((card, index) => (
             <div
               key={card.number}
-              className={`group relative w-[310px] sm:w-[360px] md:w-[410px] h-[380px] sm:h-[420px] p-8 sm:p-10 bg-white border-r border-zinc-200 flex flex-col justify-between shrink-0 hover:bg-zinc-50/70 transition-colors duration-300 ${
+              className={`group relative w-[310px] sm:w-[360px] md:w-[410px] h-[380px] sm:h-[420px] p-8 sm:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer ${
                 index === 0 ? "border-l border-zinc-200" : ""
               }`}
             >
-              {/* Top: Large Black Number with Outfit Font */}
+              {/* Top: Large Outlined Number with Outfit Font */}
               <div>
                 <div className="flex items-start justify-between">
                   <span
-                    className={`${outfit.className} text-6xl sm:text-7xl font-bold tracking-tight select-none text-zinc-950 inline-block transition-transform duration-300 group-hover:scale-105`}
+                    className={`${outfit.className} card-outline-number text-6xl sm:text-7xl font-bold tracking-tight select-none inline-block transition-transform duration-300 group-hover:scale-105`}
                   >
                     {card.number}
                   </span>
                 </div>
 
                 {/* Card Title */}
-                <h3 className="mt-8 text-xl sm:text-2xl font-semibold text-zinc-950 group-hover:text-[#3A46CA] transition-colors duration-200 leading-snug tracking-tight">
+                <h3 className="mt-8 text-xl sm:text-2xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
                   {card.title}
                 </h3>
 
                 {/* Card Description */}
-                <p className="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal line-clamp-3">
+                <p className="mt-3 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-3 transition-colors duration-300">
                   {card.description}
                 </p>
               </div>
 
-              {/* Bottom: "Know More" Action Link with Normal Divider Border */}
-              <div className="pt-6 border-t border-zinc-100 flex items-center justify-between">
+              {/* Bottom: "Know More" Action Link with Divider Border */}
+              <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                 <Link
                   href={card.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer group/link text-zinc-950 hover:text-[#3A46CA]"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
                 >
                   <span>Know More</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-400 group-hover/link:text-[#3A46CA]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-all duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-400 group-hover:text-white" />
                 </Link>
 
-                <span className="text-[11px] font-mono text-zinc-400">
+                <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white/70 transition-colors duration-300">
                   {card.number} / 08
                 </span>
               </div>

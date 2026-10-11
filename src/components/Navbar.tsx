@@ -693,11 +693,11 @@ export default function Navbar() {
       {/* Full-Width Desktop Mega Menu Dropdown */}
       {activeDropdown && currentMegaData && currentCategory && (
         <div
-          className="hidden md:block absolute top-full left-0 w-full bg-white border-b border-zinc-200 shadow-none z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+          className="hidden md:block absolute top-full left-0 w-full bg-white border-t border-b border-zinc-200 shadow-lg shadow-black/5 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
           onMouseEnter={handleMegaMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="max-w-7xl mx-auto flex min-h-[420px]">
+          <div className="w-full flex min-h-[420px]">
             {/* Column 1: Categories with ↗ tabs */}
             <div className="w-80 shrink-0 p-8 border-r border-zinc-100 bg-zinc-50/50 flex flex-col">
               <h4 className="text-xs font-bold text-zinc-950 tracking-wider uppercase mb-4 shrink-0">
@@ -758,7 +758,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-zinc-200 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="md:hidden bg-white border-t border-b border-zinc-200 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="px-4 pt-3 pb-6 space-y-1">
             {(["Services", "AI/ML", "Hire Developers"] as const).map((label) => {
               const mega = MEGA_MENUS[label];

@@ -77,3 +77,16 @@ body {
   filter: none;
 }
 
+/* Horizontal Cards Outlined Numbers: Clean outline without internal contour overlaps */
+.card-outline-number {
+  color: #ffffff;
+  -webkit-text-stroke: 2.5px #3A46CA;
+  paint-order: stroke fill;
+  transition: all 0.3s ease;
+}
+
+.group:hover .card-outline-number {
+  color: #3A46CA;
+  -webkit-text-stroke: 2.5px #ffffff;
+}
+
