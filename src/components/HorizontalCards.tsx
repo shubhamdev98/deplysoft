@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { Outfit } from "next/font/google";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,6 +11,21 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
 });
+
+function CrossMark({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 11 11"
+      className={`w-[11px] h-[11px] pointer-events-none select-none text-zinc-400 overflow-visible ${className}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+    >
+      <line x1="5.5" y1="0.5" x2="5.5" y2="10.5" />
+      <line x1="0.5" y1="5.5" x2="10.5" y2="5.5" />
+    </svg>
+  );
+}
 
 interface CardItem {
   number: string;
@@ -90,6 +105,9 @@ const CARDS_DATA: CardItem[] = [
 export default function HorizontalCards() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<ScrollTrigger | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -98,143 +116,192 @@ export default function HorizontalCards() {
 
     const section = sectionRef.current;
     const track = trackRef.current;
-
     if (!section || !track) return;
 
-    const ctx = gsap.context(() => {
-      // Setup horizontal scroll pinned to vertical page scroll
+    const mm = gsap.matchMedia();
+
+    // Desktop: Smooth pin and scrub when scrolling down to this section
+    mm.add("(min-width: 768px)", () => {
       const getScrollDistance = () => {
-        return track.scrollWidth - window.innerWidth;
+        const containerWidth = track.parentElement?.clientWidth || section.clientWidth || window.innerWidth;
+        return Math.max(0, track.scrollWidth - containerWidth);
       };
 
-      gsap.to(track, {
-        x: () => -Math.max(0, getScrollDistance()),
+      const scrollDistance = getScrollDistance();
+
+      const anim = gsap.to(track, {
+        x: () => -getScrollDistance(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.max(window.innerHeight, getScrollDistance())}`,
+          end: () => `+=${Math.max(1400, scrollDistance)}`,
           pin: true,
-          scrub: 0.8,
+          scrub: 1, // Smooth scrub momentum
           invalidateOnRefresh: true,
           anticipatePin: 1,
+          onUpdate: (self) => {
+            setCanScrollLeft(self.progress > 0.02);
+            setCanScrollRight(self.progress < 0.98);
+          },
         },
       });
 
-      // Refresh ScrollTrigger after elements render
+      triggerRef.current = anim.scrollTrigger || null;
+
       const timer = setTimeout(() => {
         ScrollTrigger.refresh();
-      }, 200);
+      }, 150);
 
-      return () => clearTimeout(timer);
-    }, sectionRef);
+      const timer2 = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 600);
+
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(timer2);
+        anim.kill();
+      };
+    });
 
     return () => {
-      ctx.revert();
+      mm.revert();
     };
   }, []);
 
   const handleScrollByButton = (direction: "left" | "right") => {
-    if (typeof window === "undefined" || !sectionRef.current) return;
-    const scrollAmount = window.innerHeight * 0.75;
-    window.scrollBy({
-      top: direction === "right" ? scrollAmount : -scrollAmount,
-      behavior: "smooth",
-    });
+    if (typeof window === "undefined") return;
+
+    if (triggerRef.current && window.innerWidth >= 768) {
+      const step = (triggerRef.current.end - triggerRef.current.start) / 7;
+      const targetScroll =
+        direction === "right"
+          ? window.scrollY + step
+          : window.scrollY - step;
+
+      window.scrollTo({
+        top: Math.max(triggerRef.current.start, Math.min(triggerRef.current.end, targetScroll)),
+        behavior: "smooth",
+      });
+    } else if (trackRef.current) {
+      const cardWidth = 340;
+      trackRef.current.scrollBy({
+        left: direction === "right" ? cardWidth : -cardWidth,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-white text-zinc-900 overflow-hidden font-sans border-b border-zinc-200"
+      className="relative w-full bg-white text-zinc-900 overflow-hidden font-sans px-4 sm:px-6 lg:px-8"
     >
-      {/* Framed Outer Container Header */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-l border-r border-zinc-200 pt-16 sm:pt-20 pb-8 sm:pb-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
-              Engineered for Scale, <br className="hidden sm:inline" />
-              Speed & Precision
-            </h2>
-          </div>
+      {/* Framed Outer Container with Continuous Left, Right & Bottom Borders */}
+      <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200 min-h-screen flex flex-col justify-center">
+        
+        {/* Header */}
+        <div className="px-6 sm:px-12 lg:px-20 pt-10 sm:pt-14 pb-6 sm:pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+                Engineered for Scale, <br className="hidden sm:inline" />
+                Speed & Precision
+              </h2>
+            </div>
 
-          <div className="flex items-center gap-4">
-
-            {/* Quick manual navigation arrows */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => handleScrollByButton("left")}
-                aria-label="Previous card"
-                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleScrollByButton("right")}
-                aria-label="Next card"
-                className="w-10 h-10 border border-zinc-200 bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+            <div className="flex items-center gap-4">
+              {/* Quick manual navigation arrows */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleScrollByButton("left")}
+                  disabled={!canScrollLeft}
+                  aria-label="Previous card"
+                  className={`w-10 h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
+                    canScrollLeft
+                      ? "bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white cursor-pointer"
+                      : "bg-zinc-50 text-zinc-300 cursor-not-allowed"
+                  }`}
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScrollByButton("right")}
+                  disabled={!canScrollRight}
+                  aria-label="Next card"
+                  className={`w-10 h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
+                    canScrollRight
+                      ? "bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white cursor-pointer"
+                      : "bg-zinc-50 text-zinc-300 cursor-not-allowed"
+                  }`}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Horizontal Cards Slider Track with Normal Top and Bottom Borders */}
-      <div className="w-full relative border-t border-b border-zinc-200 bg-white overflow-hidden">
-        <div
-          ref={trackRef}
-          className="flex flex-nowrap items-stretch will-change-transform"
-          style={{ width: "max-content" }}
-        >
-          {CARDS_DATA.map((card, index) => (
-            <div
-              key={card.number}
-              className={`group relative w-[310px] sm:w-[360px] md:w-[410px] h-[380px] sm:h-[420px] p-8 sm:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer ${
-                index === 0 ? "border-l border-zinc-200" : ""
-              }`}
-            >
-              {/* Top: Large Outlined Number with Outfit Font */}
-              <div>
-                <div className="flex items-start justify-between">
-                  <span
-                    className={`${outfit.className} text-6xl sm:text-7xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
-                  >
-                    {card.number}
-                  </span>
+        {/* Horizontal Cards Slider Track with Top Border AND Bottom Border */}
+        <div className="relative w-full border-t border-b border-zinc-200 bg-white overflow-hidden">
+          {/* Corner Cross Marks on the track borders */}
+          <CrossMark className="hidden md:block absolute top-[-0.5px] left-[-0.5px] -translate-x-1/2 -translate-y-1/2 z-20" />
+          <CrossMark className="hidden md:block absolute top-[-0.5px] right-[-0.5px] translate-x-1/2 -translate-y-1/2 z-20" />
+          <CrossMark className="hidden md:block absolute bottom-[-0.5px] left-[-0.5px] -translate-x-1/2 translate-y-1/2 z-20" />
+          <CrossMark className="hidden md:block absolute bottom-[-0.5px] right-[-0.5px] translate-x-1/2 translate-y-1/2 z-20" />
+
+          <div
+            ref={trackRef}
+            className="flex flex-nowrap items-stretch will-change-transform select-none overflow-x-auto md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            style={{ width: "max-content" }}
+          >
+            {CARDS_DATA.map((card) => (
+              <div
+                key={card.number}
+                className="group relative w-[310px] sm:w-[360px] md:w-[410px] h-[380px] sm:h-[420px] p-8 sm:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer"
+              >
+                {/* Top: Large Outlined Number with Outfit Font */}
+                <div>
+                  <div className="flex items-start justify-between">
+                    <span
+                      className={`${outfit.className} text-6xl sm:text-7xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
+                    >
+                      {card.number}
+                    </span>
+                  </div>
+
+                  {/* Card Title */}
+                  <h3 className="mt-8 text-xl sm:text-2xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
+                    {card.title}
+                  </h3>
+
+                  {/* Card Description */}
+                  <p className="mt-3 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-3 transition-colors duration-300">
+                    {card.description}
+                  </p>
                 </div>
 
-                {/* Card Title */}
-                <h3 className="mt-8 text-xl sm:text-2xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
-                  {card.title}
-                </h3>
+                {/* Bottom: "Know More" Action Link with Divider Border */}
+                <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
+                  <Link
+                    href={card.href}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
+                  >
+                    <span>Know More</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-all duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-400 group-hover:text-white" />
+                  </Link>
 
-                {/* Card Description */}
-                <p className="mt-3 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-3 transition-colors duration-300">
-                  {card.description}
-                </p>
+                  <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white/70 transition-colors duration-300">
+                    {card.number} / 08
+                  </span>
+                </div>
               </div>
-
-              {/* Bottom: "Know More" Action Link with Divider Border */}
-              <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
-                <Link
-                  href={card.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
-                >
-                  <span>Know More</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-all duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-400 group-hover:text-white" />
-                </Link>
-
-                <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white/70 transition-colors duration-300">
-                  {card.number} / 08
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

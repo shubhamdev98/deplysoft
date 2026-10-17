@@ -4,6 +4,7 @@ import HorizontalCards from "@/components/HorizontalCards";
 import Philosophy from "@/components/Philosophy";
 import StoryVideo from "@/components/StoryVideo";
 import TechStack from "@/components/TechStack";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HorizontalCards />
       <StoryVideo />
       <TechStack />
+      <Footer />
     </main>
   );
 }
