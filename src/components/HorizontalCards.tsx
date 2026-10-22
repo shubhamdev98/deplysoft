@@ -12,20 +12,6 @@ const outfit = Outfit({
   weight: ["600", "700", "800"],
 });
 
-function CrossMark({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 11 11"
-      className={`w-[11px] h-[11px] pointer-events-none select-none text-zinc-400 overflow-visible ${className}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      <line x1="5.5" y1="0.5" x2="5.5" y2="10.5" />
-      <line x1="0.5" y1="5.5" x2="10.5" y2="5.5" />
-    </svg>
-  );
-}
 
 interface CardItem {
   number: string;
@@ -109,6 +95,18 @@ export default function HorizontalCards() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasMovedRef = useRef(false);
+
+  const checkMobileScroll = () => {
+    if (!trackRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -122,6 +120,8 @@ export default function HorizontalCards() {
 
     // Desktop: Smooth pin and scrub when scrolling down to this section
     mm.add("(min-width: 768px)", () => {
+      track.scrollLeft = 0;
+
       const getScrollDistance = () => {
         const containerWidth = track.parentElement?.clientWidth || section.clientWidth || window.innerWidth;
         return Math.max(0, track.scrollWidth - containerWidth);
@@ -164,10 +164,55 @@ export default function HorizontalCards() {
       };
     });
 
+    // Mobile: Native touch/drag scroll
+    mm.add("(max-width: 767px)", () => {
+      triggerRef.current = null;
+      gsap.set(track, { clearProps: "transform,x" });
+      checkMobileScroll();
+    });
+
+    // Initial mobile scroll state check
+    checkMobileScroll();
+
     return () => {
       mm.revert();
     };
   }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0 || !trackRef.current) return;
+    if (window.innerWidth >= 768) return;
+
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+    startXRef.current = e.pageX - trackRef.current.offsetLeft;
+    scrollLeftRef.current = trackRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current || !trackRef.current) return;
+    if (window.innerWidth >= 768) return;
+
+    e.preventDefault();
+    const x = e.pageX - trackRef.current.offsetLeft;
+    const walk = x - startXRef.current;
+    if (Math.abs(walk) > 4) {
+      hasMovedRef.current = true;
+    }
+    trackRef.current.scrollLeft = scrollLeftRef.current - walk;
+    checkMobileScroll();
+  };
+
+  const handleMouseUp = () => {
+    isDraggingRef.current = false;
+  };
+
+  const handleLinkClick = (e: React.MouseEvent) => {
+    if (hasMovedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   const handleScrollByButton = (direction: "left" | "right") => {
     if (typeof window === "undefined") return;
@@ -184,11 +229,13 @@ export default function HorizontalCards() {
         behavior: "smooth",
       });
     } else if (trackRef.current) {
-      const cardWidth = 340;
+      const firstCard = trackRef.current.firstElementChild as HTMLElement | null;
+      const cardWidth = firstCard ? firstCard.offsetWidth : 320;
       trackRef.current.scrollBy({
         left: direction === "right" ? cardWidth : -cardWidth,
         behavior: "smooth",
       });
+      setTimeout(checkMobileScroll, 350);
     }
   };
 
@@ -246,16 +293,15 @@ export default function HorizontalCards() {
 
         {/* Horizontal Cards Slider Track with Top Border AND Bottom Border */}
         <div className="relative w-full border-t border-b border-zinc-200 bg-white overflow-hidden">
-          {/* Corner Cross Marks on the track borders */}
-          <CrossMark className="hidden md:block absolute top-[-0.5px] left-[-0.5px] -translate-x-1/2 -translate-y-1/2 z-20" />
-          <CrossMark className="hidden md:block absolute top-[-0.5px] right-[-0.5px] translate-x-1/2 -translate-y-1/2 z-20" />
-          <CrossMark className="hidden md:block absolute bottom-[-0.5px] left-[-0.5px] -translate-x-1/2 translate-y-1/2 z-20" />
-          <CrossMark className="hidden md:block absolute bottom-[-0.5px] right-[-0.5px] translate-x-1/2 translate-y-1/2 z-20" />
 
           <div
             ref={trackRef}
-            className="flex flex-nowrap items-stretch will-change-transform select-none overflow-x-auto md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            style={{ width: "max-content" }}
+            onScroll={checkMobileScroll}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            className="w-full md:w-max flex flex-nowrap items-stretch will-change-transform select-none overflow-x-auto md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth overscroll-x-contain touch-pan-x cursor-grab active:cursor-grabbing md:cursor-default"
           >
             {CARDS_DATA.map((card) => (
               <div
@@ -287,6 +333,7 @@ export default function HorizontalCards() {
                 <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                   <Link
                     href={card.href}
+                    onClick={handleLinkClick}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
                   >
                     <span>Know More</span>

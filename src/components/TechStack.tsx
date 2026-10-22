@@ -11,20 +11,6 @@ interface TechItem {
   icon: string;
 }
 
-function CrossMark({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 11 11"
-      className={`w-[11px] h-[11px] pointer-events-none select-none text-zinc-400 overflow-visible ${className}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      <line x1="5.5" y1="0.5" x2="5.5" y2="10.5" />
-      <line x1="0.5" y1="5.5" x2="10.5" y2="5.5" />
-    </svg>
-  );
-}
 
 const TECH_LIST: TechItem[] = [
   {
@@ -93,23 +79,6 @@ export default function TechStack() {
                 key={item.name}
                 className="group relative p-7 sm:p-9 lg:p-10 bg-white hover:bg-zinc-50/70 transition-all duration-300 flex flex-col justify-between"
               >
-                {/* Top-Left CrossMark for Row 1 columns */}
-                {(index === 0 || index === 1 || index === 2) && (
-                  <CrossMark className="hidden lg:block absolute top-[-0.5px] left-[-0.5px] -translate-x-1/2 -translate-y-1/2 z-20" />
-                )}
-
-                {/* Top-Right CrossMark for outer right column of Row 1 */}
-                {index === 2 && (
-                  <CrossMark className="hidden lg:block absolute top-[-0.5px] right-[-0.5px] translate-x-1/2 -translate-y-1/2 z-20" />
-                )}
-
-                {/* Bottom-Left CrossMark for all columns in both rows */}
-                <CrossMark className="hidden lg:block absolute bottom-[-0.5px] left-[-0.5px] -translate-x-1/2 translate-y-1/2 z-20" />
-
-                {/* Bottom-Right CrossMark for outer right column of both rows */}
-                {(index === 2 || index === 5) && (
-                  <CrossMark className="hidden lg:block absolute bottom-[-0.5px] right-[-0.5px] translate-x-1/2 translate-y-1/2 z-20" />
-                )}
 
                 <div>
                   {/* Top Bar: Icon and Category Tag */}

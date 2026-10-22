@@ -2,20 +2,6 @@
 
 import { ShieldCheck, Zap, Layers } from "lucide-react";
 
-function CrossMark({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 11 11"
-      className={`w-[11px] h-[11px] pointer-events-none select-none text-zinc-400 overflow-visible ${className}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      <line x1="5.5" y1="0.5" x2="5.5" y2="10.5" />
-      <line x1="0.5" y1="5.5" x2="10.5" y2="5.5" />
-    </svg>
-  );
-}
 
 const CORE_VALUES = [
   {
@@ -75,21 +61,6 @@ export default function Philosophy() {
                   key={item.title}
                   className="group relative p-8 sm:p-10 lg:p-12 bg-[#18181b] hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between"
                 >
-                  {/* Top-Left CrossMark for all 3 columns */}
-                  <CrossMark className="hidden md:block absolute top-[-0.5px] left-[-0.5px] -translate-x-1/2 -translate-y-1/2 z-20" />
-
-                  {/* Top-Right CrossMark for outer right column */}
-                  {index === 2 && (
-                    <CrossMark className="hidden md:block absolute top-[-0.5px] right-[-0.5px] translate-x-1/2 -translate-y-1/2 z-20" />
-                  )}
-
-                  {/* Bottom-Left CrossMark for all 3 columns */}
-                  <CrossMark className="hidden md:block absolute bottom-[-0.5px] left-[-0.5px] -translate-x-1/2 translate-y-1/2 z-20" />
-
-                  {/* Bottom-Right CrossMark for outer right column */}
-                  {index === 2 && (
-                    <CrossMark className="hidden md:block absolute bottom-[-0.5px] right-[-0.5px] translate-x-1/2 translate-y-1/2 z-20" />
-                  )}
 
                   <div>
                     <div className="w-12 h-12 bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-white mb-8 group-hover:scale-105 transition-transform duration-200">
