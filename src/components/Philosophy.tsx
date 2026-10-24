@@ -44,8 +44,11 @@ export default function Philosophy() {
         {/* Centered Heading Content with Typography matching Hero */}
         <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-16 sm:py-20 md:py-24 font-sans">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Subtitle matching Hero subtitle styling */}
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl font-normal leading-relaxed font-sans">
+           
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-4">
+              Designed for Velocity, Reliability & Precision
+            </h2>
+            <p className="text-base sm:text-lg text-zinc-400 max-w-3xl font-normal leading-relaxed font-sans">
               We eliminate unnecessary bloat and technical debt. Every microservice, UI component, and database query is designed for maximum throughput and ultra-low latency.
             </p>
           </div>

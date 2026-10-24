@@ -551,6 +551,7 @@ interface SimpleNavItem {
 }
 
 const REGULAR_NAV_ITEMS: SimpleNavItem[] = [
+  { label: "Portfolio", href: "#portfolio" },
   { label: "Solutions", href: "#solutions" },
   { label: "Blog", href: "#blog" },
   { label: "About Us", href: "#about" },
@@ -603,7 +604,7 @@ export default function Navbar() {
             <Link href="/" className="group inline-flex items-center">
               <Image
                 src={logoImg}
-                alt="Deplysoft"
+                alt="Deplysoft - Enterprise Digital Product & Software Engineering Studio"
                 priority
                 unoptimized
                 className="h-5 sm:h-7 w-auto object-contain navbar-brand-logo"

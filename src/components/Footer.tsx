@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Outfit } from "next/font/google";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, CheckCircle2 } from "lucide-react";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
-});
+import { ArrowRight, ArrowUpRight, Mail, MapPin } from "lucide-react";
 
 const SERVICES_LINKS = [
   { label: "Generative AI & LLMs", href: "#ai-llms" },
@@ -37,7 +31,7 @@ const COMPANY_LINKS = [
   { label: "Engineering Philosophy", href: "#philosophy" },
   { label: "Modern Tech Stack", href: "#technologies" },
   { label: "Enterprise Case Studies", href: "#portfolio" },
-  { label: "Careers", href: "#careers", badge: "Hiring" },
+  { label: "Careers", href: "#careers" },
   { label: "Tech Insights & Blog", href: "#blog" },
   { label: "Partner Ecosystem", href: "#partner" },
   { label: "Security & SOC 2", href: "#security" },
@@ -70,7 +64,7 @@ export default function Footer() {
       <div className="w-full border-b border-zinc-800 bg-[#0d0d0f] px-5 py-8 sm:px-10 sm:py-12 lg:px-14">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 max-w-7xl mx-auto">
           <div className="max-w-xl">
-            <h3 className="mt-2 text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Architecting Enterprise Digital Experiences
             </h3>
             <p className="mt-1.5 text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed">
@@ -112,7 +106,7 @@ export default function Footer() {
           {/* Column 1: SERVICES */}
           <div className="bg-[#0d0d0f] p-5 sm:p-7 lg:p-9 flex flex-col justify-between">
             <div>
-              <h3 className="text-xs font-mono uppercase tracking-[0.22em] text-zinc font-semibold mb-4 sm:mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4 sm:mb-6">
                 Services
               </h3>
               <ul className="space-y-2 sm:space-y-2.5">
@@ -133,7 +127,7 @@ export default function Footer() {
           {/* Column 2: HIRE TALENT */}
           <div className="bg-[#0d0d0f] p-5 sm:p-7 lg:p-9 flex flex-col justify-between">
             <div>
-              <h3 className="text-xs font-mono uppercase tracking-[0.22em] text-zinc font-semibold mb-4 sm:mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4 sm:mb-6">
                 Hire Talent
               </h3>
               <ul className="space-y-2 sm:space-y-2.5">
@@ -154,7 +148,7 @@ export default function Footer() {
           {/* Column 3: COMPANY */}
           <div className="bg-[#0d0d0f] p-5 sm:p-7 lg:p-9 flex flex-col justify-between">
             <div>
-              <h3 className="text-xs font-mono uppercase tracking-[0.22em] text-zinc font-semibold mb-4 sm:mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4 sm:mb-6">
                 Company
               </h3>
               <ul className="space-y-2 sm:space-y-2.5">
@@ -165,7 +159,6 @@ export default function Footer() {
                       className="text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors duration-200 flex items-center justify-between"
                     >
                       <span className="truncate">{item.label}</span>
-                      
                     </Link>
                   </li>
                 ))}
@@ -176,7 +169,7 @@ export default function Footer() {
           {/* Column 4: CONTACT & LOCATIONS */}
           <div className="bg-[#0d0d0f] p-5 sm:p-7 lg:p-9 flex flex-col justify-between">
             <div>
-              <h3 className="text-xs font-mono uppercase tracking-[0.22em] text-zinc font-semibold mb-4 sm:mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-4 sm:mb-6">
                 Contact
               </h3>
 
@@ -212,7 +205,7 @@ export default function Footer() {
 
               {/* Social Media Links */}
               <div className="mt-5 pt-4 border-t border-zinc-800/80">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 block mb-2">
                   Connect
                 </span>
                 <div className="flex flex-wrap gap-2.5">
@@ -233,7 +226,7 @@ export default function Footer() {
 
             {/* SLA Response Badge */}
             <div className="mt-6 pt-3 border-t border-zinc-800/60">
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-400">
+              <span className="inline-flex items-center gap-1.5 text-xs text-zinc-400">
                 <span>24/7 Enterprise Response</span>
               </span>
             </div>
@@ -242,14 +235,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Sub-Footer Bar: Also 2 Columns on Mobile with Vertical Line */}
+      {/* Sub-Footer Bar */}
       <div className="w-full border-b border-zinc-800">
-        <div className="grid grid-cols-2 gap-px bg-zinc-800 text-[11px] sm:text-xs font-mono text-zinc-400">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-800 text-xs text-zinc-400">
           
           {/* Sub-Col 1: Copyright & Legal */}
           <div className="bg-[#0d0d0f] px-5 py-4 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <span>© 2026 DEPLYSOFT Technologies Inc.</span>
-            <div className="flex items-center gap-3 text-[11px]">
+            <div className="flex items-center gap-3 text-xs">
               <Link href="#privacy" className="hover:text-white transition-colors">Privacy</Link>
               <span>•</span>
               <Link href="#terms" className="hover:text-white transition-colors">Terms</Link>
@@ -258,10 +251,10 @@ export default function Footer() {
 
           {/* Sub-Col 2: System Status & Certifications */}
           <div className="bg-[#0d0d0f] px-5 py-4 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <span className="flex items-center gap-1.5 text-zync-400">
+            <span className="flex items-center gap-1.5 text-zinc-400">
               <span>All Systems Operational</span>
             </span>
-            <span className="text-[11px] text-zinc-500">
+            <span className="text-xs text-zinc-500">
               SOC 2 Type II • ISO 27001
             </span>
           </div>
@@ -269,7 +262,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Giant Edge-to-Edge DEPLYSOFT Brand Text */}
+      {/* Giant Edge-to-Edge DEPLYSOFT Brand Text using normal font */}
       <div className="w-full bg-[#0d0d0f] px-2 sm:px-4 lg:px-6 pt-4 pb-0 overflow-hidden select-none">
         <svg
           viewBox="0 0 1300 270"
@@ -283,10 +276,9 @@ export default function Footer() {
             fill="#3A46CA"
             textLength="1280"
             lengthAdjust="spacingAndGlyphs"
-            className={outfit.className}
+            className="font-sans font-extrabold"
             style={{
               fontSize: "250px",
-              fontWeight: 900,
               letterSpacing: "-0.03em",
             }}
           >

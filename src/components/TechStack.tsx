@@ -86,7 +86,7 @@ export default function TechStack() {
                     <div className="relative w-14 h-14 p-2 bg-zinc-50 border border-zinc-100 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                       <Image
                         src={item.icon}
-                        alt={item.name}
+                        alt={`${item.name} technology icon - ${item.category}`}
                         width={40}
                         height={40}
                         unoptimized

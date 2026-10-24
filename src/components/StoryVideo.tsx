@@ -6,9 +6,9 @@ export default function StoryVideo() {
         <div className="relative z-10 px-6 sm:px-12 lg:px-20 pt-16 pb-16 md:pt-24 md:pb-24">
           {/* Heading & Subtitle below the video */}
           <div className="max-w-5xl mx-auto mb-8 sm:mt-12">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-950 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-950 leading-tight">
               Our Purpose
-            </h3>
+            </h2>
             <p className="mt-3 text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed font-normal max-w-3xl">
               Architecting scalable software, modern interfaces, and resilient cloud systems designed to accelerate ambitious enterprises.
             </p>

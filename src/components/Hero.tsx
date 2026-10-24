@@ -64,7 +64,7 @@ export default function Hero() {
               >
                 <Image
                   src={brand.src}
-                  alt={brand.name}
+                  alt={`${brand.name} enterprise client logo`}
                   width={140}
                   height={40}
                   className="h-7 sm:h-8 w-auto max-w-[130px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
