@@ -95,16 +95,9 @@ export default function HorizontalCards() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const isDraggingRef = useRef(false);
-  const startXRef = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const hasMovedRef = useRef(false);
-
-  const checkMobileScroll = () => {
-    if (!trackRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  const checkScrollProgress = (progress: number) => {
+    setCanScrollLeft(progress > 0.02);
+    setCanScrollRight(progress < 0.98);
   };
 
   useEffect(() => {
@@ -116,18 +109,12 @@ export default function HorizontalCards() {
     const track = trackRef.current;
     if (!section || !track) return;
 
-    const mm = gsap.matchMedia();
-
-    // Desktop: Smooth pin and scrub when scrolling down to this section
-    mm.add("(min-width: 768px)", () => {
-      track.scrollLeft = 0;
-
+    const ctx = gsap.context(() => {
       const getScrollDistance = () => {
-        const containerWidth = track.parentElement?.clientWidth || section.clientWidth || window.innerWidth;
+        const containerWidth =
+          track.parentElement?.clientWidth || section.clientWidth || window.innerWidth;
         return Math.max(0, track.scrollWidth - containerWidth);
       };
-
-      const scrollDistance = getScrollDistance();
 
       const anim = gsap.to(track, {
         x: () => -getScrollDistance(),
@@ -135,14 +122,14 @@ export default function HorizontalCards() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.max(1400, scrollDistance)}`,
+          end: () => `+=${Math.max(1200, getScrollDistance())}`,
           pin: true,
-          scrub: 1, // Smooth scrub momentum
+          scrub: 1, // Smooth scrub momentum on both mobile and desktop
           invalidateOnRefresh: true,
           anticipatePin: 1,
+          fastScrollEnd: true,
           onUpdate: (self) => {
-            setCanScrollLeft(self.progress > 0.02);
-            setCanScrollRight(self.progress < 0.98);
+            checkScrollProgress(self.progress);
           },
         },
       });
@@ -162,62 +149,17 @@ export default function HorizontalCards() {
         clearTimeout(timer2);
         anim.kill();
       };
-    });
-
-    // Mobile: Native touch/drag scroll
-    mm.add("(max-width: 767px)", () => {
-      triggerRef.current = null;
-      gsap.set(track, { clearProps: "transform,x" });
-      checkMobileScroll();
-    });
-
-    // Initial mobile scroll state check
-    checkMobileScroll();
+    }, sectionRef);
 
     return () => {
-      mm.revert();
+      ctx.revert();
     };
   }, []);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0 || !trackRef.current) return;
-    if (window.innerWidth >= 768) return;
-
-    isDraggingRef.current = true;
-    hasMovedRef.current = false;
-    startXRef.current = e.pageX - trackRef.current.offsetLeft;
-    scrollLeftRef.current = trackRef.current.scrollLeft;
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDraggingRef.current || !trackRef.current) return;
-    if (window.innerWidth >= 768) return;
-
-    e.preventDefault();
-    const x = e.pageX - trackRef.current.offsetLeft;
-    const walk = x - startXRef.current;
-    if (Math.abs(walk) > 4) {
-      hasMovedRef.current = true;
-    }
-    trackRef.current.scrollLeft = scrollLeftRef.current - walk;
-    checkMobileScroll();
-  };
-
-  const handleMouseUp = () => {
-    isDraggingRef.current = false;
-  };
-
-  const handleLinkClick = (e: React.MouseEvent) => {
-    if (hasMovedRef.current) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
 
   const handleScrollByButton = (direction: "left" | "right") => {
     if (typeof window === "undefined") return;
 
-    if (triggerRef.current && window.innerWidth >= 768) {
+    if (triggerRef.current) {
       const step = (triggerRef.current.end - triggerRef.current.start) / 7;
       const targetScroll =
         direction === "right"
@@ -228,14 +170,6 @@ export default function HorizontalCards() {
         top: Math.max(triggerRef.current.start, Math.min(triggerRef.current.end, targetScroll)),
         behavior: "smooth",
       });
-    } else if (trackRef.current) {
-      const firstCard = trackRef.current.firstElementChild as HTMLElement | null;
-      const cardWidth = firstCard ? firstCard.offsetWidth : 320;
-      trackRef.current.scrollBy({
-        left: direction === "right" ? cardWidth : -cardWidth,
-        behavior: "smooth",
-      });
-      setTimeout(checkMobileScroll, 350);
     }
   };
 
@@ -248,7 +182,7 @@ export default function HorizontalCards() {
       <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200 min-h-screen flex flex-col justify-center">
         
         {/* Header */}
-        <div className="px-6 sm:px-12 lg:px-20 pt-10 sm:pt-14 pb-6 sm:pb-8">
+        <div className="px-6 sm:px-12 lg:px-20 pt-8 sm:pt-14 pb-5 sm:pb-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
@@ -296,17 +230,12 @@ export default function HorizontalCards() {
 
           <div
             ref={trackRef}
-            onScroll={checkMobileScroll}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            className="w-full md:w-max flex flex-nowrap items-stretch will-change-transform select-none overflow-x-auto md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth overscroll-x-contain touch-pan-x cursor-grab active:cursor-grabbing md:cursor-default"
+            className="w-max flex flex-nowrap items-stretch will-change-transform select-none cursor-default"
           >
             {CARDS_DATA.map((card) => (
               <div
                 key={card.number}
-                className="group relative w-[310px] sm:w-[360px] md:w-[410px] h-[380px] sm:h-[420px] p-8 sm:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer"
+                className="group relative w-[300px] sm:w-[350px] md:w-[410px] h-[370px] sm:h-[400px] md:h-[420px] p-7 sm:p-9 md:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer"
               >
                 {/* Top: Large Outlined Number with Outfit Font */}
                 <div>
@@ -333,7 +262,6 @@ export default function HorizontalCards() {
                 <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                   <Link
                     href={card.href}
-                    onClick={handleLinkClick}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
                   >
                     <span>Know More</span>
