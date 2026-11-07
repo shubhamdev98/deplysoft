@@ -41,18 +41,18 @@ const TESTIMONIALS: TestimonialItem[] = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="relative w-full bg-white text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
-      {/* Framed Container matching site aesthetic */}
-      <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200">
-        
+    <section id="testimonials" className="relative w-full bg-side-stripes text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
+      {/* Framed Container with Left, Right & Bottom Borders */}
+      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200">
+
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 border-b border-zinc-200">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-16 sm:py-20 md:py-24 border-b border-zinc-200">
+          <div className="flex flex-col max-w-3xl">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Trusted by Engineering <br className="hidden sm:inline" />
               Leaders at Scale
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
+            <p className="mt-4 text-lg sm:text-xl text-zinc-600 leading-relaxed">
               What founders, CTOs, and enterprise engineering executives say about architecting mission-critical platforms with Deplysoft.
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function Testimonials() {
             {TESTIMONIALS.map((item) => (
               <div
                 key={item.id}
-                className="group relative p-7 sm:p-9 lg:p-11 bg-white hover:bg-zinc-50/70 transition-all duration-300 flex flex-col justify-between"
+                className="group relative p-7 sm:p-9 lg:p-11 bg-white hover:bg-zinc-50/60 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Rating Stars & Highlight Tag */}
@@ -80,7 +80,7 @@ export default function Testimonials() {
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="text-sm sm:text-base text-zinc-800 leading-relaxed font-normal">
+                  <blockquote className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                     &ldquo;{item.quote}&rdquo;
                   </blockquote>
                 </div>
@@ -88,7 +88,7 @@ export default function Testimonials() {
                 {/* Author Info */}
                 <div className="mt-8 pt-6 border-t border-zinc-100 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-950 group-hover:text-[#3A46CA] transition-colors leading-tight">
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-950 leading-tight">
                       {item.author}
                     </h3>
                     <p className="mt-1 text-xs text-zinc-500 font-normal leading-tight">

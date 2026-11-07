@@ -8,9 +8,10 @@ interface GsapButtonProps {
   href?: string;
   onClick?: (e?: React.MouseEvent) => void;
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "brand";
   className?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export default function GsapButton({
@@ -20,12 +21,23 @@ export default function GsapButton({
   variant = "primary",
   className = "",
   type = "button",
+  disabled = false,
 }: GsapButtonProps) {
   const containerRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
   const textRef = useRef<HTMLSpanElement | null>(null);
   const iconRef = useRef<HTMLSpanElement | null>(null);
 
-  const childrenArray = React.Children.toArray(children);
+  // Recursively flatten fragments so conditional or grouped children are recognized
+  const flattenChildren = (nodes: React.ReactNode): React.ReactNode[] => {
+    return React.Children.toArray(nodes).flatMap((child) => {
+      if (React.isValidElement(child) && child.type === React.Fragment) {
+        return flattenChildren((child.props as { children?: React.ReactNode }).children);
+      }
+      return [child];
+    });
+  };
+
+  const childrenArray = flattenChildren(children);
   const hasMultiple = childrenArray.length > 1;
   const textChild = hasMultiple ? childrenArray[0] : null;
   const iconChild = hasMultiple ? childrenArray.slice(1) : null;
@@ -38,7 +50,17 @@ export default function GsapButton({
     };
   }, []);
 
+  useEffect(() => {
+    if (disabled && textRef.current && iconRef.current) {
+      gsap.killTweensOf(textRef.current);
+      gsap.killTweensOf(iconRef.current);
+      gsap.set(textRef.current, { opacity: 1, x: 0 });
+      gsap.set(iconRef.current, { x: 0, rotate: 0, scale: 1 });
+    }
+  }, [disabled]);
+
   const handleMouseEnter = () => {
+    if (disabled) return;
     // Smooth text fade/slide & arrow leftward shift + rotation
     if (hasMultiple && textRef.current && iconRef.current) {
       const textWidth = textRef.current.offsetWidth;
@@ -66,6 +88,7 @@ export default function GsapButton({
   };
 
   const handleMouseLeave = () => {
+    if (disabled) return;
     // Smooth restore text and icon
     if (hasMultiple && textRef.current && iconRef.current) {
       gsap.killTweensOf(textRef.current);
@@ -89,6 +112,11 @@ export default function GsapButton({
   };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
     if (containerRef.current) {
       gsap.fromTo(
         containerRef.current,
@@ -106,9 +134,10 @@ export default function GsapButton({
     "group relative overflow-hidden inline-flex items-center justify-center font-semibold text-sm transition-colors border cursor-pointer select-none shadow-none";
 
   const variantStyles = {
-    primary: "bg-zinc-950 text-white border-zinc-950",
-    secondary: "bg-zinc-100 text-zinc-900 border-zinc-200",
-    outline: "bg-transparent text-zinc-900 border-zinc-950",
+    primary: "bg-zinc-950 text-white border-zinc-950 hover:bg-zinc-900",
+    secondary: "bg-zinc-100 text-zinc-900 border-zinc-200 hover:bg-zinc-200",
+    outline: "bg-transparent text-zinc-900 border-zinc-950 hover:bg-zinc-50",
+    brand: "bg-[#3A46CA] text-white border-[#3A46CA] hover:bg-[#323cb5]",
   }[variant];
 
   const content = (
@@ -155,10 +184,11 @@ export default function GsapButton({
     <button
       ref={containerRef as React.Ref<HTMLButtonElement>}
       type={type}
+      disabled={disabled}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-      className={`${baseStyles} ${variantStyles} ${className}`}
+      className={`${baseStyles} ${variantStyles} ${disabled ? "opacity-60 cursor-not-allowed" : ""} ${className}`}
     >
       {content}
     </button>

@@ -701,10 +701,10 @@ export default function Navbar() {
           <div className="w-full flex min-h-[420px]">
             {/* Column 1: Categories with ↗ tabs */}
             <div className="w-80 shrink-0 p-8 border-r border-zinc-100 bg-zinc-50/50 flex flex-col">
-              <h4 className="text-xs font-bold text-zinc-950 tracking-wider uppercase mb-4 shrink-0">
+              <h4 className="text-xs sm:text-sm font-bold text-zinc-950 tracking-wider uppercase mb-4 shrink-0">
                 {currentMegaData.categoriesTitle}
               </h4>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {currentMegaData.categories.map((cat, idx) => {
                   const isSelected = activeCategoryIndex === idx;
                   return (
@@ -712,7 +712,7 @@ export default function Navbar() {
                       key={cat.id}
                       type="button"
                       onMouseEnter={() => setActiveCategoryIndex(idx)}
-                      className={`group w-full flex items-center justify-between px-4 py-3 text-xs font-medium transition-all duration-150 cursor-pointer shadow-none ${
+                      className={`group w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all duration-150 cursor-pointer shadow-none ${
                         isSelected
                           ? "bg-[#3A46CA] text-white font-semibold"
                           : "text-zinc-700 hover:bg-[#3A46CA] hover:text-white"
@@ -720,7 +720,7 @@ export default function Navbar() {
                     >
                       <span>{cat.title}</span>
                       <ArrowUpRight
-                        className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                        className={`w-4 h-4 transition-transform duration-150 ${
                           isSelected ? "text-white" : "text-zinc-400 group-hover:text-white"
                         }`}
                       />
@@ -732,7 +732,7 @@ export default function Navbar() {
 
             {/* Column 2: Right Detailed 2-Column Grid */}
             <div className="flex-1 p-8 bg-white flex flex-col">
-              <h4 className="text-xs font-bold text-zinc-950 tracking-wider uppercase mb-5 shrink-0">
+              <h4 className="text-sm sm:text-base font-bold text-zinc-950 tracking-wider uppercase mb-5 shrink-0">
                 {currentCategory.title}
               </h4>
               <div className="grid grid-cols-2 gap-x-10 gap-y-6">
@@ -743,10 +743,10 @@ export default function Navbar() {
                     onClick={() => setActiveDropdown(null)}
                     className="group block"
                   >
-                    <div className="text-xs font-semibold text-zinc-900 group-hover:text-indigo-600 transition-colors">
+                    <div className="text-sm sm:text-[15px] font-semibold text-zinc-950 group-hover:text-[#3A46CA] transition-colors leading-snug">
                       {item.name}
                     </div>
-                    <p className="text-[11px] text-zinc-500 mt-0.5 leading-relaxed line-clamp-2">
+                    <p className="text-xs sm:text-[13px] text-zinc-500 mt-1 leading-relaxed line-clamp-2">
                       {item.desc}
                     </p>
                   </Link>
@@ -795,23 +795,23 @@ export default function Navbar() {
                               onClick={() =>
                                 setMobileExpandedCategory(isCatOpen ? null : cat.id)
                               }
-                              className="w-full flex items-center justify-between py-1 text-xs font-semibold text-zinc-800"
+                              className="w-full flex items-center justify-between py-1.5 text-sm font-semibold text-zinc-800"
                             >
                               <span>{cat.title}</span>
                               <ChevronDown
-                                className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-150 ${
+                                className={`w-4 h-4 text-zinc-400 transition-transform duration-150 ${
                                   isCatOpen ? "rotate-180" : ""
                                 }`}
                               />
                             </button>
                             {isCatOpen && (
-                              <div className="space-y-1.5 pt-1 pb-2">
+                              <div className="space-y-1.5 pt-1.5 pb-2.5">
                                 {cat.items.map((sub) => (
                                   <Link
                                     key={sub.name}
                                     href={sub.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="block text-xs text-zinc-600 hover:text-indigo-600 py-0.5"
+                                    className="block text-sm text-zinc-600 hover:text-[#3A46CA] py-1"
                                   >
                                     {sub.name}
                                   </Link>

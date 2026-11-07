@@ -179,7 +179,7 @@ export default function Footer() {
                   href="mailto:info@deplysoft.com"
                   className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-zinc-300 hover:text-white transition-colors break-all"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#3A46CA] shrink-0" />
+                  <Mail className="w-3.5 h-3.5 shrink-0" />
                   <span>info@deplysoft.com</span>
                 </a>
                 <Link
@@ -235,8 +235,39 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Sub-Footer Bar */}
-      <div className="w-full border-b border-zinc-800">
+      {/* Giant Edge-to-Edge DEPLYSOFT Brand Text */}
+      <div className="w-full bg-[#0d0d0f] px-2 sm:px-4 lg:px-6 pt-4 pb-0 overflow-hidden select-none leading-none border-b border-zinc-800">
+        <svg
+          viewBox="0 0 1300 172"
+          className="w-full h-auto block select-none pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="deplysoftGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#4F5CEB" />
+              <stop offset="100%" stopColor="#3A46CA" />
+            </linearGradient>
+          </defs>
+          <text
+            x="50%"
+            y="225"
+            textAnchor="middle"
+            fill="url(#deplysoftGradient)"
+            textLength="1280"
+            lengthAdjust="spacingAndGlyphs"
+            className="font-sans font-extrabold"
+            style={{
+              fontSize: "250px",
+              letterSpacing: "-0.03em",
+            }}
+          >
+            DEPLYSOFT
+          </text>
+        </svg>
+      </div>
+
+      {/* Sub-Footer Bar: Placed at the end of last below "DEPLYSOFT" */}
+      <div className="w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-800 text-xs text-zinc-400">
           
           {/* Sub-Col 1: Copyright & Legal */}
@@ -260,31 +291,6 @@ export default function Footer() {
           </div>
 
         </div>
-      </div>
-
-      {/* Giant Edge-to-Edge DEPLYSOFT Brand Text using normal font */}
-      <div className="w-full bg-[#0d0d0f] px-2 sm:px-4 lg:px-6 pt-4 pb-0 overflow-hidden select-none">
-        <svg
-          viewBox="0 0 1300 270"
-          className="w-full h-auto block select-none pointer-events-none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <text
-            x="50%"
-            y="225"
-            textAnchor="middle"
-            fill="#3A46CA"
-            textLength="1280"
-            lengthAdjust="spacingAndGlyphs"
-            className="font-sans font-extrabold"
-            style={{
-              fontSize: "250px",
-              letterSpacing: "-0.03em",
-            }}
-          >
-            DEPLYSOFT
-          </text>
-        </svg>
       </div>
 
     </footer>

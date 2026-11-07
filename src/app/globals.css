@@ -10,6 +10,20 @@
   --foreground: #171717;
 }
 
+/* Responsive Base Typography Scaling:
+   Mobile (< 768px): 70% font size (30% reduction)
+   Desktop (>= 768px): 100% font size
+*/
+html {
+  font-size: 70%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 100%;
+  }
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -42,6 +56,70 @@ body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-left-slow {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+  will-change: transform;
+}
+
+/* Infinite Vertical Scrolling Marquees for TechStack */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-up-slow {
+  animation: scroll-up 30s linear infinite;
+  will-change: transform;
 }
 
 /* Fullscreen F11 20% Image Height Increase */

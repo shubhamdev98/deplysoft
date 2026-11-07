@@ -116,12 +116,14 @@ export default function HorizontalCards() {
         return Math.max(0, track.scrollWidth - containerWidth);
       };
 
+      const getNavbarHeight = () => (window.innerWidth >= 768 ? 80 : 64);
+
       const anim = gsap.to(track, {
         x: () => -getScrollDistance(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
-          start: "top top",
+          start: () => `top ${getNavbarHeight()}px`,
           end: () => `+=${Math.max(1200, getScrollDistance())}`,
           pin: true,
           scrub: 1, // Smooth scrub momentum on both mobile and desktop
@@ -160,14 +162,21 @@ export default function HorizontalCards() {
     if (typeof window === "undefined") return;
 
     if (triggerRef.current) {
-      const step = (triggerRef.current.end - triggerRef.current.start) / 7;
-      const targetScroll =
-        direction === "right"
-          ? window.scrollY + step
-          : window.scrollY - step;
+      const { start, end } = triggerRef.current;
+      const step = (end - start) / 7;
+      const currentScroll = window.scrollY;
+      let targetScroll: number;
+
+      if (currentScroll < start) {
+        targetScroll = direction === "right" ? start + step : start;
+      } else if (currentScroll > end) {
+        targetScroll = direction === "left" ? end - step : end;
+      } else {
+        targetScroll = direction === "right" ? currentScroll + step : currentScroll - step;
+      }
 
       window.scrollTo({
-        top: Math.max(triggerRef.current.start, Math.min(triggerRef.current.end, targetScroll)),
+        top: Math.max(start, Math.min(end, targetScroll)),
         behavior: "smooth",
       });
     }
@@ -176,22 +185,25 @@ export default function HorizontalCards() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-white text-zinc-900 overflow-hidden font-sans px-4 sm:px-6 lg:px-8"
+      className="relative w-full bg-side-stripes text-zinc-900 overflow-hidden font-sans px-4 sm:px-6 lg:px-8"
     >
-      {/* Framed Outer Container with Continuous Left, Right & Bottom Borders */}
-      <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200 min-h-screen flex flex-col justify-center">
+      {/* Framed Outer Container with Continuous Left, Right & Bottom Borders - Vertically Centered */}
+      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200 min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col justify-center">
         
-        {/* Header */}
-        <div className="px-6 sm:px-12 lg:px-20 pt-8 sm:pt-14 pb-5 sm:pb-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+        {/* Header with Centered Top and Bottom Spacing */}
+        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-b border-zinc-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex flex-col max-w-3xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
                 Engineered for Scale, <br className="hidden sm:inline" />
                 Speed & Precision
               </h2>
+              <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">
+                Explore our specialized engineering disciplines, high-performance architectures, and mission-critical software capabilities.
+              </p>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 shrink-0">
               {/* Quick manual navigation arrows */}
               <div className="flex items-center gap-2">
                 <button
@@ -226,40 +238,44 @@ export default function HorizontalCards() {
         </div>
 
         {/* Horizontal Cards Slider Track with Top Border AND Bottom Border */}
-        <div className="relative w-full border-t border-b border-zinc-200 bg-white overflow-hidden">
+        <div className="relative w-full border-b border-zinc-200 bg-white overflow-hidden">
 
           <div
             ref={trackRef}
             className="w-max flex flex-nowrap items-stretch will-change-transform select-none cursor-default"
           >
-            {CARDS_DATA.map((card) => (
-              <div
-                key={card.number}
-                className="group relative w-[300px] sm:w-[350px] md:w-[410px] h-[370px] sm:h-[400px] md:h-[420px] p-7 sm:p-9 md:p-10 bg-white hover:bg-[#3A46CA] border-r border-zinc-200 flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer"
-              >
+            {CARDS_DATA.map((card, index) => {
+              const isLast = index === CARDS_DATA.length - 1;
+              return (
+                <div
+                  key={card.number}
+                  className={`group relative w-[270px] sm:w-[310px] md:w-[350px] h-[280px] sm:h-[300px] md:h-[325px] p-5 sm:p-6 md:p-7 bg-white hover:bg-[#3A46CA] ${
+                    isLast ? "" : "border-r border-zinc-200"
+                  } flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer`}
+                >
                 {/* Top: Large Outlined Number with Outfit Font */}
                 <div>
                   <div className="flex items-start justify-between">
                     <span
-                      className={`${outfit.className} text-6xl sm:text-7xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
+                      className={`${outfit.className} text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
                     >
                       {card.number}
                     </span>
                   </div>
 
                   {/* Card Title */}
-                  <h3 className="mt-8 text-xl sm:text-2xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
+                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
                     {card.title}
                   </h3>
 
                   {/* Card Description */}
-                  <p className="mt-3 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-3 transition-colors duration-300">
+                  <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-2 sm:line-clamp-3 transition-colors duration-300">
                     {card.description}
                   </p>
                 </div>
 
                 {/* Bottom: "Know More" Action Link with Divider Border */}
-                <div className="pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
+                <div className="pt-3 sm:pt-4 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                   <Link
                     href={card.href}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"
@@ -273,7 +289,8 @@ export default function HorizontalCards() {
                   </span>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         </div>
 

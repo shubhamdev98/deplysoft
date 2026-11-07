@@ -10,65 +10,33 @@ interface ProjectItem {
 
 const PROJECTS: ProjectItem[] = [
   {
-    id: "globeflow",
-    title: "GlobeFlow Treasury Platform",
-    category: "Fintech & Multi-Rail Banking",
+    id: "ecommerce-platform",
+    title: "Next-Gen Enterprise E-Commerce Engine",
+    category: "E-Commerce & Headless Commerce",
     description:
-      "An enterprise-grade liquidity management and multi-rail cross-border payment platform for tier-1 financial institutions, handling high-frequency automated FX settlements with sub-second finality.",
-    image: "/projects/project-1.jpg",
+      "A scalable, multi-tenant digital commerce storefront architected for ultra-low latency catalog search, high-concurrency checkout pipelines, and seamless payment gateway integrations.",
+    image: "/projects/E-commerce_website_i_want_to_add_in_postfoio_website._w-0.jpg",
   },
   {
-    id: "aurahealth",
-    title: "AuraHealth Diagnostic Suite",
-    category: "HealthTech & Clinical AI",
+    id: "culinary-hospitality",
+    title: "Aura Dining & Hospitality Platform",
+    category: "Hospitality & Interactive Web",
     description:
-      "A HIPAA-compliant clinical surveillance platform combining continuous medical telemetry streaming with custom convolutional neural networks for real-time patient risk prediction.",
-    image: "/projects/project-2.jpg",
-  },
-  {
-    id: "kubeinsight",
-    title: "KubeInsight Observability Platform",
-    category: "Cloud Architecture & DevOps",
-    description:
-      "An enterprise cloud infrastructure console providing real-time distributed tracing, pod health analytics, and sub-millisecond network latency telemetry across hybrid multi-region clusters.",
-    image: "/projects/project-3.jpg",
-  },
-  {
-    id: "aerostream",
-    title: "AeroStream X1 Spatial CAD",
-    category: "VisionOS & Spatial Computing",
-    description:
-      "A spatial computing workspace built natively for Apple Vision Pro, enabling aerospace engineers to collaboratively inspect, stress-test, and simulate drone aerodynamics in real-time 3D.",
-    image: "/projects/project-4.jpg",
-  },
-  {
-    id: "logisticsops",
-    title: "LogisticsOps IoT Telematics",
-    category: "Industrial IoT & Fleet Management",
-    description:
-      "A mission-critical IoT telemetry and dispatch control platform connecting maritime cargo ships, long-haul freight trucks, and automated warehouse AGV robots in one unified operating system.",
-    image: "/projects/project-5.jpg",
-  },
-  {
-    id: "aetherium",
-    title: "Aetherium Enterprise AI Engine",
-    category: "Generative AI & LLMs",
-    description:
-      "An enterprise retrieval-augmented generation (RAG) platform that indexes millions of unstructured technical documents into an interactive multi-hop knowledge graph with verifiable citations.",
-    image: "/projects/project-6.jpg",
+      "An immersive digital dining and reservation platform featuring dynamic real-time table management, curated interactive menus, and seamless POS backend synchronization.",
+    image: "/projects/restorent_restaurant_website_i_want_to_add_in_postfoio_w-0.jpg",
   },
 ];
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="relative w-full bg-white text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
+    <section id="portfolio" className="relative w-full bg-side-stripes text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
       {/* Framed Container matching site aesthetic */}
-      <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200">
+      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200">
         
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 pt-24 sm:pt-10 md:pt-16 pb-8 sm:pb-12 border-b border-zinc-200">
+        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-12 sm:py-16 md:py-20 border-b border-zinc-200">
           <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 mt-3 leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Engineered for Scale, <br className="hidden sm:inline" />
               Built for Impact
             </h2>
@@ -84,7 +52,7 @@ export default function Portfolio() {
             {PROJECTS.map((project) => (
               <div
                 key={project.id}
-                className="group relative p-6 sm:p-9 lg:p-12 bg-white hover:bg-zinc-50/60 transition-all duration-300 flex flex-col"
+                className="group relative p-6 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col"
               >
                 {/* 1. Project Image */}
                 <div className="relative w-full aspect-[16/10] border border-zinc-200 bg-zinc-100 overflow-hidden transition-all duration-300 group-hover:border-zinc-400 group-hover:shadow-md">
@@ -98,7 +66,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* 2. Heading (H3) */}
-                <h3 className="text-xl sm:text-2xl font-bold text-zinc-950 mt-6 group-hover:text-[#3A46CA] transition-colors leading-snug">
+                <h3 className="text-xl sm:text-2xl font-bold text-zinc-950 mt-6 leading-snug">
                   {project.title}
                 </h3>
 

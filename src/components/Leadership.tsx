@@ -66,12 +66,12 @@ export default function Leadership() {
       <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200">
         
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 border-b border-zinc-200">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-16 sm:py-20 md:py-24 border-b border-zinc-200">
+          <div className="flex flex-col max-w-3xl">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Executive Leadership & Vision
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
+            <p className="mt-4 text-lg sm:text-xl text-zinc-600 leading-relaxed">
               Meet the founders driving Deplysoft&apos;s commitment to engineering craftsmanship, architectural integrity, and relentless execution.
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function Leadership() {
             {LEADERS.map((leader) => (
               <div
                 key={leader.id}
-                className="group relative p-6 sm:p-9 lg:p-12 bg-white hover:bg-zinc-50/60 transition-all duration-300 flex flex-col justify-between"
+                className="group relative p-6 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Leader Image */}
@@ -99,22 +99,22 @@ export default function Leadership() {
 
                   {/* Role Tag */}
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#3A46CA] uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-zinc-950 uppercase tracking-wider">
                       {leader.role}
                     </span>
                   </div>
 
                   {/* Name (H3) */}
-                  <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 mt-1.5 group-hover:text-[#3A46CA] transition-colors leading-snug">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 mt-1.5 leading-snug">
                     {leader.name}
                   </h3>
 
                   {/* Focus Tagline */}
-                  <p className="mt-1 text-xs text-zinc-500 font-medium tracking-wide">
+                  <p className="mt-1 text-xs text-zinc-950 font-medium tracking-wide">
                     {leader.focus}
                   </p>
 
-                  {/* Bio Paragraph */}
+                  {/* Bio Paragraph - Left only paragraph */}
                   <p className="mt-3.5 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                     {leader.bio}
                   </p>
@@ -154,10 +154,10 @@ export default function Leadership() {
 
                   <Link
                     href="#contact"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-950 hover:text-[#3A46CA] transition-colors group/link"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-950 hover:text-black transition-colors group/link"
                   >
                     <span>Connect</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-400 group-hover/link:text-[#3A46CA]" />
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-zinc-950 group-hover/link:text-black" />
                   </Link>
                 </div>
               </div>
