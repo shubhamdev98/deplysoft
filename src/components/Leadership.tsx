@@ -39,7 +39,7 @@ const LEADERS: LeaderItem[] = [
     id: "ceo",
     name: "Shubham Panchal",
     role: "Founder & Chief Executive Officer",
-    focus: "Product Strategy • Ente rprise Scaling • Client Partnerships",
+    focus: "Product Strategy • Enterprise Scaling • Client Partnerships",
     bio: "Guiding Deplysoft's vision to deliver high-velocity digital products. Focused on eliminating technical bloat and helping ambitious enterprises scale from early concepts to millions of active users.",
     image: "/team/ceo.jpg",
     linkedin: "https://linkedin.com",
@@ -61,17 +61,17 @@ const LEADERS: LeaderItem[] = [
 
 export default function Leadership() {
   return (
-    <section id="leadership" className="relative w-full bg-white text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
-      {/* Framed Container matching site aesthetic */}
-      <div className="relative max-w-7xl mx-auto border-l border-r border-b border-zinc-200">
+    <section id="leadership" className="relative w-full bg-white text-zinc-950 px-0 sm:px-6 lg:px-8 overflow-hidden font-sans">
+      {/* Framed Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
+      <div className="relative max-w-7xl mx-auto border-b border-zinc-200 sm:border-l sm:border-r">
         
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-16 sm:py-20 md:py-24 border-b border-zinc-200">
+        <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-10 sm:py-16 md:py-20 border-b border-zinc-200">
           <div className="flex flex-col max-w-3xl">
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Executive Leadership & Vision
             </h2>
-            <p className="mt-4 text-lg sm:text-xl text-zinc-600 leading-relaxed">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-zinc-600 leading-relaxed font-normal">
               Meet the founders driving Deplysoft&apos;s commitment to engineering craftsmanship, architectural integrity, and relentless execution.
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function Leadership() {
             {LEADERS.map((leader) => (
               <div
                 key={leader.id}
-                className="group relative p-6 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col justify-between"
+                className="group relative p-5 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Leader Image */}
@@ -98,14 +98,14 @@ export default function Leadership() {
                   </div>
 
                   {/* Role Tag */}
-                  <div className="mt-6 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-zinc-950 uppercase tracking-wider">
+                  <div className="mt-5 sm:mt-6 flex items-center justify-between">
+                    <span className="text-[11px] sm:text-xs font-semibold text-zinc-950 uppercase tracking-wider">
                       {leader.role}
                     </span>
                   </div>
 
                   {/* Name (H3) */}
-                  <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 mt-1.5 leading-snug">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 mt-1 leading-snug">
                     {leader.name}
                   </h3>
 
@@ -115,14 +115,14 @@ export default function Leadership() {
                   </p>
 
                   {/* Bio Paragraph - Left only paragraph */}
-                  <p className="mt-3.5 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+                  <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                     {leader.bio}
                   </p>
                 </div>
 
                 {/* Social & Contact Bar */}
-                <div className="mt-8 pt-5 border-t border-zinc-100 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                <div className="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-zinc-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 sm:gap-3">
                     <Link
                       href={leader.linkedin}
                       target="_blank"

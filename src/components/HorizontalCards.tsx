@@ -184,21 +184,22 @@ export default function HorizontalCards() {
 
   return (
     <section
+      id="services"
       ref={sectionRef}
-      className="relative w-full bg-side-stripes text-zinc-900 overflow-hidden font-sans px-4 sm:px-6 lg:px-8"
+      className="relative w-full bg-white text-zinc-900 overflow-hidden font-sans px-0 sm:px-6 lg:px-8"
     >
-      {/* Framed Outer Container with Continuous Left, Right & Bottom Borders - Vertically Centered */}
-      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200 min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+      {/* Framed Outer Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
+      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r min-h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col justify-center">
         
         {/* Header with Centered Top and Bottom Spacing */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-b border-zinc-200">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-4 sm:py-6 md:py-7 border-b border-zinc-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
             <div className="flex flex-col max-w-3xl">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
                 Engineered for Scale, <br className="hidden sm:inline" />
                 Speed & Precision
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">
+              <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-2xl">
                 Explore our specialized engineering disciplines, high-performance architectures, and mission-critical software capabilities.
               </p>
             </div>
@@ -211,26 +212,26 @@ export default function HorizontalCards() {
                   onClick={() => handleScrollByButton("left")}
                   disabled={!canScrollLeft}
                   aria-label="Previous card"
-                  className={`w-10 h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
+                  className={`w-9 h-9 sm:w-10 sm:h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
                     canScrollLeft
                       ? "bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white cursor-pointer"
                       : "bg-zinc-50 text-zinc-300 cursor-not-allowed"
                   }`}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleScrollByButton("right")}
                   disabled={!canScrollRight}
                   aria-label="Next card"
-                  className={`w-10 h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
+                  className={`w-9 h-9 sm:w-10 sm:h-10 border border-zinc-200 flex items-center justify-center transition-colors ${
                     canScrollRight
                       ? "bg-white hover:bg-[#3A46CA] text-zinc-700 hover:text-white cursor-pointer"
                       : "bg-zinc-50 text-zinc-300 cursor-not-allowed"
                   }`}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
@@ -249,7 +250,7 @@ export default function HorizontalCards() {
               return (
                 <div
                   key={card.number}
-                  className={`group relative w-[270px] sm:w-[310px] md:w-[350px] h-[280px] sm:h-[300px] md:h-[325px] p-5 sm:p-6 md:p-7 bg-white hover:bg-[#3A46CA] ${
+                  className={`group relative w-[260px] sm:w-[290px] md:w-[325px] h-[245px] sm:h-[265px] md:h-[285px] p-4 sm:p-5 md:p-6 bg-white hover:bg-[#3A46CA] ${
                     isLast ? "" : "border-r border-zinc-200"
                   } flex flex-col justify-between shrink-0 transition-all duration-300 cursor-pointer`}
                 >
@@ -257,25 +258,25 @@ export default function HorizontalCards() {
                 <div>
                   <div className="flex items-start justify-between">
                     <span
-                      className={`${outfit.className} text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
+                      className={`${outfit.className} text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight select-none text-zinc-950 group-hover:text-white inline-block transition-all duration-300 group-hover:scale-105`}
                     >
                       {card.number}
                     </span>
                   </div>
 
                   {/* Card Title */}
-                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
+                  <h3 className="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg font-semibold text-zinc-950 group-hover:text-white transition-colors duration-300 leading-snug tracking-tight">
                     {card.title}
                   </h3>
 
                   {/* Card Description */}
-                  <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-2 sm:line-clamp-3 transition-colors duration-300">
+                  <p className="mt-1 sm:mt-1.5 text-xs sm:text-[13px] text-zinc-600 group-hover:text-white/90 leading-relaxed font-normal line-clamp-2 sm:line-clamp-3 transition-colors duration-300">
                     {card.description}
                   </p>
                 </div>
 
                 {/* Bottom: "Know More" Action Link with Divider Border */}
-                <div className="pt-3 sm:pt-4 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
+                <div className="pt-2.5 sm:pt-3 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                   <Link
                     href={card.href}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider transition-all duration-300 cursor-pointer group/link text-zinc-950 group-hover:text-white"

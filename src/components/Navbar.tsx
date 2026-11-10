@@ -598,7 +598,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 sm:h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Left: Logo */}
           <div className="flex items-center justify-start flex-1 min-w-0">
             <Link href="/" className="group inline-flex items-center">
@@ -607,7 +607,7 @@ export default function Navbar() {
                 alt="Deplysoft - Enterprise Digital Product & Software Engineering Studio"
                 priority
                 unoptimized
-                className="h-5 sm:h-7 w-auto object-contain navbar-brand-logo"
+                className="h-6 sm:h-7 w-auto object-contain navbar-brand-logo"
               />
             </Link>
           </div>
@@ -759,7 +759,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-b border-zinc-200 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="md:hidden bg-white border-t border-b border-zinc-200 max-h-[calc(100dvh-4rem)] overflow-y-auto">
           <div className="px-4 pt-3 pb-6 space-y-1">
             {(["Services", "AI/ML", "Hire Developers"] as const).map((label) => {
               const mega = MEGA_MENUS[label];

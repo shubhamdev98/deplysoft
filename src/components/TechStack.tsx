@@ -180,18 +180,18 @@ const MOBILE_ROW_3: TechItem[] = [
 
 function MobileTechCard({ item }: { item: TechItem }) {
   return (
-    <div className="w-[240px] sm:w-[260px] p-5 sm:p-6 bg-white border-r border-zinc-200 shrink-0 flex flex-col justify-between select-none">
+    <div className="w-[230px] sm:w-[260px] p-4 sm:p-5 bg-white border-r border-zinc-200 shrink-0 flex flex-col justify-between select-none">
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <div className="relative w-11 h-11 p-1.5 bg-zinc-100 border border-zinc-200 flex items-center justify-center shrink-0">
+        <div className="flex items-center justify-between mb-3.5">
+          <div className="relative w-10 h-10 p-1.5 bg-zinc-100 border border-zinc-200 flex items-center justify-center shrink-0">
             {item.iconSrc ? (
               <Image
                 src={item.iconSrc}
                 alt={`${item.name} technology icon - ${item.category}`}
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 unoptimized
-                className="w-8 h-8 object-contain"
+                className="w-7 h-7 object-contain"
               />
             ) : (
               item.iconSvg
@@ -202,11 +202,11 @@ function MobileTechCard({ item }: { item: TechItem }) {
           </span>
         </div>
 
-        <h3 className="text-base sm:text-lg font-semibold text-zinc-950">
+        <h3 className="text-sm sm:text-base font-semibold text-zinc-950">
           {item.name}
         </h3>
 
-        <p className="mt-1.5 text-xs text-zinc-600 leading-relaxed font-normal line-clamp-2">
+        <p className="mt-1 text-xs text-zinc-600 leading-relaxed font-normal line-clamp-2">
           {item.description}
         </p>
       </div>
@@ -255,19 +255,19 @@ function TechCard({ item }: { item: TechItem }) {
 
 export default function TechStack() {
   return (
-    <section className="relative w-full bg-side-stripes text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
-      {/* Framed Container with Left, Right & Bottom Borders */}
-      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200">
+    <section className="relative w-full bg-white text-zinc-950 px-0 sm:px-6 lg:px-8 overflow-hidden font-sans">
+      {/* Framed Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
+      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r">
 
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-16 sm:py-20 md:py-24 border-b border-zinc-200">
+        <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-10 sm:py-16 md:py-20 border-b border-zinc-200">
           <div className="flex flex-col max-w-3xl">
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Engineered with <br className="hidden sm:inline" /> 
               Modern Technologies
             </h2>
 
-            <p className="mt-4 text-lg sm:text-xl text-zinc-600 leading-relaxed">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-zinc-600 leading-relaxed font-normal">
               We leverage battle-tested languages, high-performance database engines, and distributed caching systems to build resilient digital infrastructure.
             </p>
           </div>
@@ -390,7 +390,7 @@ export default function TechStack() {
         </div>
 
         {/* Bottom Bar: Right corner "More" link */}
-        <div className="border-t border-zinc-200 px-6 sm:px-12 lg:px-20 py-5 flex justify-end bg-white">
+        <div className="border-t border-zinc-200 px-5 sm:px-12 lg:px-20 py-4 sm:py-5 flex justify-end bg-white">
           <Link
             href="#technologies"
             className="group/more inline-flex items-center gap-1.5 text-sm sm:text-base font-light text-zinc-950 hover:text-[#3A46CA] transition-all duration-200 cursor-pointer"

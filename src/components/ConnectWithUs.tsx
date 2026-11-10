@@ -34,27 +34,27 @@ export default function ConnectWithUs() {
   return (
     <section
       id="connect"
-      className="relative w-full bg-side-stripes text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans"
+      className="relative w-full bg-white text-zinc-950 px-0 sm:px-6 lg:px-8 overflow-hidden font-sans"
     >
       {/* Anchor for any #contact links across the site */}
       <span id="contact" className="absolute -top-24 pointer-events-none" />
 
-      {/* Outer Framed Container matching site aesthetic */}
-      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200">
-        <div className="max-w-2xl mx-auto px-6 sm:px-10 py-16 sm:py-20 md:py-24">
+      {/* Outer Framed Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
+      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r">
+        <div className="max-w-2xl mx-auto px-5 sm:px-10 py-12 sm:py-16 md:py-24">
           
           {/* Section Header */}
-          <div className=" mb-10 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Connect with Us
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
+            <p className="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
               Send us a message and our team will get back to you shortly.
             </p>
           </div>
 
           {formState === "success" ? (
-            <div className="py-10 text-center bg-zinc-50 border border-zinc-200 p-8">
+            <div className="py-8 sm:py-10 text-center bg-zinc-50 border border-zinc-200 p-6 sm:p-8">
               <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center mb-4">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
@@ -77,7 +77,7 @@ export default function ConnectWithUs() {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               {/* Name */}
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
@@ -91,7 +91,7 @@ export default function ConnectWithUs() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your Name"
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-base md:text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default function ConnectWithUs() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="Your Email"
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-base md:text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -123,11 +123,11 @@ export default function ConnectWithUs() {
                   <MessageSquare className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
                   <textarea
                     required
-                    rows={5}
+                    rows={4}
                     value={formData.msg}
                     onChange={(e) => setFormData({ ...formData, msg: e.target.value })}
                     placeholder="Your Message..."
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors resize-y"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-zinc-200 focus:border-[#3A46CA] focus:ring-1 focus:ring-[#3A46CA] text-base md:text-sm text-zinc-950 placeholder:text-zinc-400 outline-none transition-colors resize-y"
                   />
                 </div>
               </div>

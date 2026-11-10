@@ -10,18 +10,8 @@
   --foreground: #171717;
 }
 
-/* Responsive Base Typography Scaling:
-   Mobile (< 768px): 70% font size (30% reduction)
-   Desktop (>= 768px): 100% font size
-*/
-html {
-  font-size: 70%;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 100%;
-  }
+.bg-side-stripes {
+  background-color: #ffffff;
 }
 
 

@@ -29,18 +29,18 @@ const PROJECTS: ProjectItem[] = [
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="relative w-full bg-side-stripes text-zinc-950 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
-      {/* Framed Container matching site aesthetic */}
-      <div className="relative max-w-7xl mx-auto bg-white border-l border-r border-b border-zinc-200">
+    <section id="portfolio" className="relative w-full bg-white text-zinc-950 px-0 sm:px-6 lg:px-8 overflow-hidden font-sans">
+      {/* Framed Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
+      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r">
         
         {/* Section Header */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-12 sm:py-16 md:py-20 border-b border-zinc-200">
+        <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-10 sm:py-16 md:py-20 border-b border-zinc-200">
           <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
               Engineered for Scale, <br className="hidden sm:inline" />
               Built for Impact
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
               A selection of mission-critical platforms, high-velocity financial architectures, and modern software systems engineered for ambitious enterprises.
             </p>
           </div>
@@ -52,26 +52,26 @@ export default function Portfolio() {
             {PROJECTS.map((project) => (
               <div
                 key={project.id}
-                className="group relative p-6 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col"
+                className="group relative p-5 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col"
               >
                 {/* 1. Project Image */}
-                <div className="relative w-full aspect-[16/10] border border-zinc-200 bg-zinc-100 overflow-hidden transition-all duration-300 group-hover:border-zinc-400 group-hover:shadow-md">
+                <div className="relative w-full aspect-[16/10] border border-zinc-200 bg-zinc-100 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={`${project.title} - ${project.category} case study by Deplysoft`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    className="object-cover object-top"
                   />
                 </div>
 
                 {/* 2. Heading (H3) */}
-                <h3 className="text-xl sm:text-2xl font-bold text-zinc-950 mt-6 leading-snug">
+                <h3 className="text-lg sm:text-2xl font-bold text-zinc-950 mt-5 sm:mt-6 leading-snug">
                   {project.title}
                 </h3>
 
                 {/* 3. Paragraph */}
-                <p className="mt-2.5 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+                <p className="mt-2 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                   {project.description}
                 </p>
               </div>
