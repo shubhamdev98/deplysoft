@@ -64,34 +64,34 @@ export default function Testimonials() {
             {TESTIMONIALS.map((item) => (
               <div
                 key={item.id}
-                className="group relative p-6 sm:p-8 lg:p-11 bg-white hover:bg-zinc-50/60 transition-all duration-300 flex flex-col justify-between"
+                className="group relative p-6 sm:p-8 lg:p-11 bg-white hover:bg-[#3A46CA] transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   {/* Rating Stars & Highlight Tag */}
                   <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="flex items-center gap-1 text-[#3A46CA]">
+                    <div className="flex items-center gap-1 text-[#3A46CA] group-hover:text-white transition-colors duration-300">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <span className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">
+                    <span className="text-[11px] font-medium text-zinc-500 group-hover:text-white/80 uppercase tracking-wider transition-colors duration-300">
                       {item.highlight}
                     </span>
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+                  <blockquote className="text-sm sm:text-base text-zinc-600 group-hover:text-white leading-relaxed font-normal transition-colors duration-300">
                     &ldquo;{item.quote}&rdquo;
                   </blockquote>
                 </div>
 
                 {/* Author Info */}
-                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-zinc-100 flex items-center justify-between">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-zinc-100 group-hover:border-white/20 flex items-center justify-between transition-colors duration-300">
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-950 leading-tight">
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-950 group-hover:text-white leading-tight transition-colors duration-300">
                       {item.author}
                     </h3>
-                    <p className="mt-1 text-xs text-zinc-500 font-normal leading-tight">
+                    <p className="mt-1 text-xs text-zinc-500 group-hover:text-white/80 font-normal leading-tight transition-colors duration-300">
                       {item.role} • {item.company}
                     </p>
                   </div>

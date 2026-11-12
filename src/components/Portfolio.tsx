@@ -55,7 +55,7 @@ export default function Portfolio() {
                 className="group relative p-5 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col"
               >
                 {/* 1. Project Image */}
-                <div className="relative w-full aspect-[16/10] border border-zinc-200 bg-zinc-100 overflow-hidden">
+                <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={`${project.title} - ${project.category} case study by Deplysoft`}
@@ -63,6 +63,9 @@ export default function Portfolio() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover object-top"
                   />
+                  {/* Left & Right Subtle White Blurry Overlays */}
+                  <div className="pointer-events-none absolute inset-y-0 left-0 w-6 sm:w-8 md:w-10 bg-gradient-to-r from-white/70 via-white/30 to-transparent backdrop-blur-[1px] z-10" />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 w-6 sm:w-8 md:w-10 bg-gradient-to-l from-white/70 via-white/30 to-transparent backdrop-blur-[1px] z-10" />
                 </div>
 
                 {/* 2. Heading (H3) */}

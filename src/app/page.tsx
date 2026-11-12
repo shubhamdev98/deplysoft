@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials";
 import StoryVideo from "@/components/StoryVideo";
 import Leadership from "@/components/Leadership";
 import TechStack from "@/components/TechStack";
+import Faq from "@/components/Faq";
 import ConnectWithUs from "@/components/ConnectWithUs";
 import Footer from "@/components/Footer";
 
@@ -21,8 +22,9 @@ export default function Home() {
       <Testimonials />
       <StoryVideo />
       <Leadership />
-      <TechStack />
       <ConnectWithUs />
+      <TechStack />
+      <Faq />
       <Footer />
     </main>
   );

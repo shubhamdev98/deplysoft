@@ -27,14 +27,15 @@ const HIRE_LINKS = [
 ];
 
 const COMPANY_LINKS = [
-  { label: "About Deplysoft", href: "#about" },
-  { label: "Engineering Philosophy", href: "#philosophy" },
-  { label: "Modern Tech Stack", href: "#technologies" },
-  { label: "Enterprise Case Studies", href: "#portfolio" },
-  { label: "Careers", href: "#careers" },
-  { label: "Tech Insights & Blog", href: "#blog" },
-  { label: "Partner Ecosystem", href: "#partner" },
-  { label: "Security & SOC 2", href: "#security" },
+  { label: "About Deplysoft", href: "/#about" },
+  { label: "Engineering Philosophy", href: "/#philosophy" },
+  { label: "Modern Tech Stack", href: "/#technologies" },
+  { label: "Enterprise Case Studies", href: "/#portfolio" },
+  { label: "Careers", href: "/#careers" },
+  { label: "Tech Insights & Blog", href: "/blog" },
+  { label: "FAQs & Engagement", href: "/#faq" },
+  { label: "Partner Ecosystem", href: "/#partner" },
+  { label: "Security & SOC 2", href: "/#security" },
 ];
 
 const SOCIAL_LINKS = [

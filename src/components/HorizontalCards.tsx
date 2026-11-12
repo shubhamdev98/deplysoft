@@ -189,7 +189,7 @@ export default function HorizontalCards() {
       className="relative w-full bg-white text-zinc-900 overflow-hidden font-sans px-0 sm:px-6 lg:px-8"
     >
       {/* Framed Outer Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
-      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r min-h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r min-h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col">
         
         {/* Header with Centered Top and Bottom Spacing */}
         <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-4 sm:py-6 md:py-7 border-b border-zinc-200">
@@ -293,6 +293,32 @@ export default function HorizontalCards() {
             );
           })}
           </div>
+        </div>
+
+        {/* Flow-Line Strip touching the cards track and filling the entire bottom space */}
+        <div className="relative w-full flex-1 min-h-[36px] sm:min-h-[48px] bg-zinc-50/40 overflow-hidden">
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full pointer-events-none opacity-80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern
+                id="horizontal-cards-flow-lines"
+                width="12"
+                height="12"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M-1,1 l2,-2 M0,12 l12,-12 M11,13 l2,-2"
+                  stroke="#e4e4e7"
+                  strokeWidth="1.2"
+                  strokeLinecap="square"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#horizontal-cards-flow-lines)" />
+          </svg>
         </div>
 
       </div>

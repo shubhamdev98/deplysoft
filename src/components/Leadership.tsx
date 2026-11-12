@@ -86,36 +86,35 @@ export default function Leadership() {
                 className="group relative p-5 sm:p-9 lg:p-12 bg-white transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  {/* Leader Image */}
-                  <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] border border-zinc-200 bg-zinc-100 overflow-hidden group-hover:border-zinc-400 group-hover:shadow-md transition-all duration-300">
-                    <Image
-                      src={leader.image}
-                      alt={`${leader.name} - ${leader.role} at Deplysoft`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                    />
+                  {/* Leader Header: Left Image (Full Rounded), Right Info (Name, Role, Focus) */}
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    {/* Leader Image (Full Rounded) */}
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 aspect-square rounded-full border border-zinc-200 bg-zinc-100 overflow-hidden shrink-0 group-hover:border-zinc-400 group-hover:shadow-md transition-all duration-300">
+                      <Image
+                        src={leader.image}
+                        alt={`${leader.name} - ${leader.role} at Deplysoft`}
+                        fill
+                        sizes="(max-width: 768px) 112px, 112px"
+                        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Name, Role & Focus on Right Side */}
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[11px] sm:text-xs font-semibold text-zinc-950 uppercase tracking-wider block">
+                        {leader.role}
+                      </span>
+                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 mt-0.5 sm:mt-1 leading-snug">
+                        {leader.name}
+                      </h3>
+                      <p className="mt-1 text-xs text-zinc-950 font-medium tracking-wide">
+                        {leader.focus}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Role Tag */}
-                  <div className="mt-5 sm:mt-6 flex items-center justify-between">
-                    <span className="text-[11px] sm:text-xs font-semibold text-zinc-950 uppercase tracking-wider">
-                      {leader.role}
-                    </span>
-                  </div>
-
-                  {/* Name (H3) */}
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 mt-1 leading-snug">
-                    {leader.name}
-                  </h3>
-
-                  {/* Focus Tagline */}
-                  <p className="mt-1 text-xs text-zinc-950 font-medium tracking-wide">
-                    {leader.focus}
-                  </p>
-
-                  {/* Bio Paragraph - Left only paragraph */}
-                  <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+                  {/* Bio Paragraph */}
+                  <p className="mt-5 sm:mt-6 text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
                     {leader.bio}
                   </p>
                 </div>

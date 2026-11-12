@@ -38,12 +38,12 @@ const MEGA_MENUS: Record<string, MegaMenuData> = {
     badge: "#BuildYourNextWithUs",
     exploreTitle: "READY TO EXPLORE?",
     exploreLinks: [
-      { label: "About Us", href: "#about" },
-      { label: "Solutions", href: "#solutions" },
-      { label: "Portfolio", href: "#portfolio" },
-      { label: "Careers", href: "#careers" },
-      { label: "Blog", href: "#blog" },
-      { label: "Become A Partner", href: "#partner" },
+      { label: "About Us", href: "/#about" },
+      { label: "Solutions", href: "/#solutions" },
+      { label: "Portfolio", href: "/#portfolio" },
+      { label: "Careers", href: "/#careers" },
+      { label: "Blog", href: "/blog" },
+      { label: "Become A Partner", href: "/#partner" },
     ],
     categoriesTitle: "HIRE DEVELOPERS",
     categories: [
@@ -551,10 +551,10 @@ interface SimpleNavItem {
 }
 
 const REGULAR_NAV_ITEMS: SimpleNavItem[] = [
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Blog", href: "#blog" },
-  { label: "About Us", href: "#about" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "Blog", href: "/blog" },
+  { label: "About Us", href: "/#about" },
 ];
 
 export default function Navbar() {
@@ -632,14 +632,14 @@ export default function Navbar() {
                     }
                     className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-150 cursor-pointer ${
                       isOpen
-                        ? "text-indigo-600 font-semibold"
-                        : "text-zinc-800 hover:text-indigo-600"
+                        ? "text-[#3A46CA] font-semibold"
+                        : "text-zinc-800 hover:text-[#3A46CA]"
                     }`}
                   >
                     <span>{label}</span>
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-indigo-600" : "text-zinc-500"
+                        isOpen ? "rotate-180 text-[#3A46CA]" : "text-zinc-500"
                       }`}
                     />
                   </button>
@@ -652,7 +652,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-zinc-800 hover:text-indigo-600 transition-colors duration-150"
+                className="px-3 py-2 text-sm font-medium text-zinc-800 hover:text-[#3A46CA] transition-colors duration-150"
               >
                 {item.label}
               </Link>
@@ -663,9 +663,9 @@ export default function Navbar() {
           <div className="flex items-center justify-end flex-1 min-w-0">
             <div className="hidden md:flex items-center">
               <GsapButton
-                href="#contact"
+                href="/#contact"
                 variant="primary"
-                className="min-w-[140px] h-10 px-5"
+                className="min-w-[140px] h-10 px-5 hover:!bg-[#3A46CA] hover:!border-[#3A46CA] transition-colors duration-200"
               >
                 <span>Contact Us</span>
                 <ArrowRight className="w-4 h-4" />
@@ -677,7 +677,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2.5 text-zinc-700 hover:text-zinc-950 focus:outline-none border border-zinc-200"
+                className="p-2.5 text-zinc-700 hover:text-[#3A46CA] hover:border-[#3A46CA] focus:outline-none border border-zinc-200 transition-colors duration-150"
                 aria-label="Toggle Navigation Menu"
               >
                 {mobileMenuOpen ? (
@@ -700,7 +700,7 @@ export default function Navbar() {
         >
           <div className="w-full flex min-h-[420px]">
             {/* Column 1: Categories with ↗ tabs */}
-            <div className="w-80 shrink-0 p-8 border-r border-zinc-100 bg-zinc-50/50 flex flex-col">
+            <div className="w-80 shrink-0 p-8 border-r border-zinc-100 bg-zinc-100 flex flex-col">
               <h4 className="text-xs sm:text-sm font-bold text-zinc-950 tracking-wider uppercase mb-4 shrink-0">
                 {currentMegaData.categoriesTitle}
               </h4>
@@ -774,7 +774,7 @@ export default function Navbar() {
                     }
                     className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-zinc-800"
                   >
-                    <span className={isExpanded ? "text-indigo-600 font-semibold" : "text-zinc-800"}>
+                    <span className={isExpanded ? "text-[#3A46CA] font-semibold" : "text-zinc-800"}>
                       {label}
                     </span>
                     <ChevronDown
@@ -789,7 +789,7 @@ export default function Navbar() {
                       {mega.categories.map((cat) => {
                         const isCatOpen = mobileExpandedCategory === cat.id;
                         return (
-                          <div key={cat.id} className="border-l-2 border-indigo-100 pl-2">
+                          <div key={cat.id} className="border-l-2 border-[#3A46CA]/20 pl-2">
                             <button
                               type="button"
                               onClick={() =>
@@ -832,7 +832,7 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2.5 text-base font-medium text-zinc-800 hover:text-indigo-600 transition-colors"
+                className="block px-3 py-2.5 text-base font-medium text-zinc-800 hover:text-[#3A46CA] transition-colors"
               >
                 {item.label}
               </Link>
@@ -840,10 +840,10 @@ export default function Navbar() {
 
             <div className="pt-4 mt-2 border-t border-zinc-100">
               <GsapButton
-                href="#contact"
+                href="/#contact"
                 variant="primary"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-3"
+                className="w-full py-3 hover:!bg-[#3A46CA] hover:!border-[#3A46CA] transition-colors duration-200"
               >
                 <span>Contact Us</span>
                 <ArrowRight className="w-4 h-4" />

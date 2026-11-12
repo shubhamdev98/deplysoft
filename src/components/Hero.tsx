@@ -31,9 +31,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full bg-white px-0 sm:px-6 lg:px-8 overflow-hidden font-sans">
+    <section className="relative w-full bg-white px-0 sm:px-6 lg:px-8 overflow-hidden font-sans min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex flex-col">
       {/* Framed Container: Edge-to-edge on mobile, bordered frame on tablet/desktop */}
-      <div className="relative max-w-7xl mx-auto bg-white border-b border-zinc-200 sm:border-l sm:border-r min-h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] md:min-h-[660px] flex flex-col justify-between overflow-hidden">
+      <div className="relative max-w-7xl mx-auto w-full bg-white border-b border-zinc-200 sm:border-l sm:border-r min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex flex-col justify-between overflow-hidden flex-1">
 
         {/* Background Video Layer confined strictly INSIDE the container */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -62,22 +62,22 @@ export default function Hero() {
           />
 
           {/* Frosted Legibility Scrim Overlay to keep typography crisp */}
-          <div className="absolute inset-0 bg-white/65 sm:bg-white/55 backdrop-blur-[1.5px]" />
+          <div className="absolute inset-0 bg-white/65 sm:bg-white/10 backdrop-blur-[0.2px]" />
           {/* Soft Radial Center Scrim for optimal text contrast */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0.25)_80%)]" />
+          <div className="absolute inset-0" />
         </div>
 
         {/* Hero Content with Centered Flex Spacing */}
         <div className="relative z-10 px-5 sm:px-12 lg:px-20 py-8 sm:py-14 md:pt-24 md:pb-24 flex-1 flex flex-col justify-center">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto py-2 sm:py-4 w-full">
             {/* Heading */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-950 leading-[1.15] max-w-3xl">
-              Build, Deploy & Scale <br />
-              <span className="text-zinc-900">Digital Experiences</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-3xl">
+              <span className="text-white">Build, Deploy & Scale</span> <br />
+              <span className="text-white">Digital Experiences</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-xl text-zinc-700 max-w-2xl font-normal leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-xl text-zinc-100 max-w-2xl font-normal leading-relaxed">
               We engineer high-performance web applications, modern software systems,
               and scalable cloud infrastructure designed for your growth.
             </p>
@@ -87,7 +87,7 @@ export default function Hero() {
               <GsapButton
                 href="#contact"
                 variant="primary"
-                className="w-full sm:w-56 h-12 sm:h-14 text-sm sm:text-base shadow-sm"
+                className="w-full sm:w-56 h-12 sm:h-14 text-sm sm:text-base shadow-sm hover:!bg-[#3A46CA] hover:!border-[#3A46CA] transition-colors duration-200"
               >
                 <span>Get Started Today</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -95,7 +95,7 @@ export default function Hero() {
               <GsapButton
                 href="#services"
                 variant="secondary"
-                className="w-full sm:w-56 h-12 sm:h-14 text-sm sm:text-base bg-white/80 hover:bg-white text-zinc-950 border-zinc-300 backdrop-blur-sm"
+                className="w-full sm:w-56 h-12 sm:h-14 text-sm sm:text-base bg-white/80 hover:!bg-[#3A46CA] hover:!text-white hover:!border-[#3A46CA] text-zinc-950 border-zinc-300 backdrop-blur-sm transition-colors duration-200"
               >
                 <span>Explore Services</span>
               </GsapButton>
@@ -104,7 +104,7 @@ export default function Hero() {
         </div>
 
         {/* Full-width Seamless Brand Marquee docked at bottom */}
-        <div className="relative z-10 w-full border-t border-zinc-200/90 overflow-hidden mt-auto bg-white/80 backdrop-blur-md">
+        <div className="relative z-10 w-full border-t border-zinc-200 overflow-hidden mt-auto bg-white">
           <div className="animate-marquee flex items-center">
             {[...BRANDS, ...BRANDS, ...BRANDS, ...BRANDS].map((brand, index) => (
               <div
